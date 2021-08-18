@@ -20,12 +20,15 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@notionhq/client": "^0.2.4",
     "@radix-ui/react-polymorphic": "^0.0.13",
     "clsx": "^1.1.1",
     "next": "^11.1.0",
     "next-seo": "^4.26.0",
+    "next-themes": "^0.0.15",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "zod": "^3.7.2"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "^11.0.1",
@@ -34,6 +37,7 @@
     "@types/react-dom": "^17.0.6",
     "@typescript-eslint/eslint-plugin": "^4.29.0",
     "@typescript-eslint/parser": "^4.29.2",
+    "autoprefixer": "^10.3.1",
     "babel-plugin-optimize-clsx": "^2.6.2",
     "cross-env": "^7.0.3",
     "eslint": "^7.32.0",
@@ -48,10 +52,12 @@
     "next-compose-plugins": "^2.2.1",
     "next-sitemap": "^1.6.157",
     "next-transpile-modules": "^8.0.0",
+    "postcss": "^8.3.6",
     "prettier": "^2.3.2",
     "sass": "^1.38.0",
     "stylelint": "^13.13.1",
     "stylelint-config-standard": "^22.0.0",
+    "tailwindcss": "^2.2.7",
     "typescript": "^4.3.5"
   },
   "browserslist": [

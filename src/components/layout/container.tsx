@@ -11,10 +11,7 @@ const Container = React.forwardRef(
     return (
       <Comp
         {...props}
-        className={clsx(
-          // TODO: Put some padding, max width, and margin-x auto in here!
-          className
-        )}
+        className={clsx('container mx-auto px-5 sm:px-8', className)}
         ref={ref}
       />
     )

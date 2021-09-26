@@ -1,59 +1,25 @@
 import * as React from 'react'
-import clsx from 'clsx'
+import Link from 'next/link'
 import { getPostBody, listPosts, Body } from 'lib/notion'
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next'
 import { Post } from 'schemas/post'
+import { NotionBodyRenderer } from 'lib/notion/body-renderer'
+import PageLayout from 'components/layout/page'
 
 const PostPage = ({
   post,
   body
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
-    <article>
-      <h1>{post.title}</h1>
-      {body.map((block) => {
-        switch (block.type) {
-          case 'paragraph':
-            return (
-              <p key={block.id}>
-                {block.paragraph.text.map((text, i) => {
-                  if (text.type !== 'text') return null
-                  const children = (
-                    <span
-                      key={i}
-                      className={clsx({
-                        italic: text.annotations.italic,
-                        'font-bold': text.annotations.bold,
-                        'font-mono': text.annotations.code,
-                        'line-through': text.annotations.strikethrough,
-                        underline: text.annotations.underline
-                      })}
-                    >
-                      {text.text.content}
-                    </span>
-                  )
-                  return (
-                    <React.Fragment key={i}>
-                      {text.href ? (
-                        <a
-                          href={text.href}
-                          className="text-blue-400 transition border-b border-blue-400/70 hover:text-blue-300 hover:border-blue-400"
-                        >
-                          {children}
-                        </a>
-                      ) : (
-                        children
-                      )}
-                    </React.Fragment>
-                  )
-                })}
-              </p>
-            )
-          default:
-            return null
-        }
-      })}
-    </article>
+    <PageLayout contain={{ className: 'py-16' }}>
+      <article className="mx-auto max-w-prose">
+        <Link href="/">
+          <a className="block mb-4">{'<-'} Back</a>
+        </Link>
+        <h1 className="mb-4 text-4xl font-bold">{post.title}</h1>
+        <NotionBodyRenderer body={body} />
+      </article>
+    </PageLayout>
   )
 }
 

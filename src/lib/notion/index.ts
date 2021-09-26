@@ -1,6 +1,6 @@
 import { Client } from '@notionhq/client'
 import { ListBlockChildrenResponse } from '@notionhq/client/build/src/api-endpoints'
-import { normalizePost } from './fields-map'
+import { normalizePost } from './utils'
 
 export const notion = new Client({
   auth: process.env.NOTION_TOKEN
@@ -19,7 +19,8 @@ export async function listPosts() {
     .filter((post) => post.isPublished)
 }
 
-export type Body = Array<ListBlockChildrenResponse['results'][0]>
+export type Block = ListBlockChildrenResponse['results'][0]
+export type Body = Array<Block>
 
 export async function getPostBody(id: string) {
   const { results } = await notion.blocks.children.list({

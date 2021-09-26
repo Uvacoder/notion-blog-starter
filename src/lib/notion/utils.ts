@@ -4,7 +4,7 @@ import slug from 'slugify'
 
 export function normalizePost(post: QueryDatabaseResponse['results'][0]): Post {
   const properties = post.properties as any
-  const title = properties.Name.title[0].plain_text
+  const title = properties.Name.title.map((t: any) => t.plain_text).join('')
   return {
     title,
     id: post.id,

@@ -8,16 +8,19 @@ const HomePage = ({
   posts
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
-    <PageLayout>
-      {posts.map((post) => {
-        return (
-          <div key={post.id}>
-            <Link href={`/${post.slug}`}>
-              <a>{post.title}</a>
-            </Link>
-          </div>
-        )
-      })}
+    <PageLayout contain={{ className: 'py-16' }}>
+      <h1 className="mb-4 text-4xl font-bold">Posts</h1>
+      <ul className="list-disc list-inside">
+        {posts.map((post) => {
+          return (
+            <li key={post.id}>
+              <Link href={`/${post.slug}`}>
+                <a>{post.title}</a>
+              </Link>
+            </li>
+          )
+        })}
+      </ul>
     </PageLayout>
   )
 }

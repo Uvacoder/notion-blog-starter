@@ -1,5 +1,6 @@
 import { Client } from '@notionhq/client'
-import { postSchema } from 'schemas/post'
+import { ListBlockChildrenResponse } from '@notionhq/client/build/src/api-endpoints'
+import { normalizePost } from './fields-map'
 
 export const notion = new Client({
   auth: process.env.NOTION_TOKEN
@@ -8,8 +9,22 @@ export const notion = new Client({
 export async function listPosts() {
   const database_id = process.env.NOTION_POSTS_DATABASE_ID
   if (!database_id) {
-    throw new Error(`Make sure to inlcude NOTION_POSTS_DATABASE_ID in your env`)
+    throw new Error(
+      `Make sure to inlcude NOTION_POSTS_DATABASE_ID in your .env`
+    )
   }
   const posts = await notion.databases.query({ database_id, page_size: 100 })
-  return posts.results.map((result) => postSchema.parse(result))
+  return posts.results
+    .map((post) => normalizePost(post))
+    .filter((post) => post.isPublished)
+}
+
+export type Body = Array<ListBlockChildrenResponse['results'][0]>
+
+export async function getPostBody(id: string) {
+  const { results } = await notion.blocks.children.list({
+    block_id: id,
+    page_size: 100000
+  })
+  return results
 }

@@ -8,7 +8,7 @@ const HomePage = ({
   posts
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
-    <PageLayout headProps={{ title: 'headless-blog' }}>
+    <PageLayout>
       {posts.map((post) => {
         return (
           <div key={post.id}>

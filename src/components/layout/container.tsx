@@ -1,20 +1,17 @@
 import type * as Polymorphic from '@radix-ui/react-polymorphic'
 import clsx from 'clsx'
-import { forwardRef } from 'react'
+import * as React from 'react'
 
 type Props = {
   children?: React.ReactNode
 }
 
-const Container = forwardRef(
+const Container = React.forwardRef(
   ({ as: Comp = 'div', className, ...props }, ref) => {
     return (
       <Comp
         {...props}
-        className={clsx(
-          // TODO: Put some padding, max width, and margin-x auto in here!
-          className
-        )}
+        className={clsx('container mx-auto px-5 sm:px-8', className)}
         ref={ref}
       />
     )
